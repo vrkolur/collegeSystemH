@@ -1,0 +1,81 @@
+<nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+    <div class="container-fluid">
+        <%= link_to "Home", root_path, class:"navbar-brand"%>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                <% if Current.student && Current.teacher==nil%>
+                <%= link_to "Cources", show_cources_path, class:"nav-link active" %>
+                <%end%>
+                </li>
+            </ul>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                <% if Current.student && Current.teacher==nil%>
+                <%= link_to "Enroll", enroll_path, class:"nav-link active" %>
+                <%end%>
+                </li>
+            </ul>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                <% if Current.student==nil && Current.teacher %>
+                <%= link_to "Students", show_students_path, class:"nav-link active" %>
+                <%end%>
+                </li>
+            </ul>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                <% if Current.student==nil && Current.teacher %>
+                  <%if Current.teacher.id==4%>
+                    <%=link_to "All Students", show_all_students_path,class:"nav-link active"%>
+                <li class="nav-item">
+                  <%= link_to "Add Cource", add_cource_path, class:"nav-link active" %>
+                </li>
+                  <%end%>
+                <%end%> 
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto mb-2 ">
+            <% if Current.student%>
+              <li class="nav-item">
+              <span class="navbar-text"> <%= Current.student.email %><span>
+              </li>
+              <li class="nav-item">
+                <%= button_to "Logout", logout_path, method: :delete, class:"nav-link active"  %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Edit Password", password_edit_path, class:"nav-link"  %>
+              </li>
+              <li class="nav-item">
+                <%= link_to"Edit Profile",edit_profile_path,class:"nav-link" %> 
+              </li>
+            <%elsif Current.teacher == nil%>
+              <li class="nav-item">
+                <%= link_to "Sign Up", register_path ,class:"nav-link"%>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Login", sign_in_path,class:"nav-link" %>
+              </li>
+            <%end%>
+            </ul>
+            <ul class="navbar-nav ms-auto mb-2 ">
+          <% if Current.teacher %>
+            <li class="nav-item">
+                <span class="navbar-text"> <%= Current.teacher.email %> </span>
+            </li>
+            <li class="nav-item">
+                <%= button_to "Logout", logout_teacher_path, method: :delete, class: "nav-link active" %>
+            </li>
+          <% elsif Current.student == nil %>
+            <li class="nav-item">
+                <%= link_to "Sign Up", register_teacher_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+                <%= link_to "Login", teacher_sign_in_path, class: "nav-link" %>
+            </li>
+          <% end %>
+            </ul>
+        </div>
+    </div>
+</nav>
+
