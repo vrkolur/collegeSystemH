@@ -1,35 +1,37 @@
 Rails.application.routes.draw do
   root to:"main#index"
 
+  #To edit Passwords
   get "password", to:"passwords#edit", as: :password_edit
   patch "password", to:"passwords#update"
 
   #To register Student 
-  get "register",to: "registrations#new"
-  post "register",to: "registrations#create"
+  get "register_student",to: "registrations#new_student"
+  post "register_student",to: "registrations#create_student"
   
   #To register Teacher
-  get "register_teacher",to: "teacher_registrations#new"
-  post "register_teacher",to: "teacher_registrations#create"
+  get "register_teacher",to: "registrations#new_teacher"
+  post "register_teacher",to: "registrations#create_teacher"
 
-  get "edit_profile",to: "registrations#edit"
-  patch "edit_profile",to: "registrations#update"
-
-  get "show_student", to: "registrations#show"
+  # For Student Update 
+  get "edit_profile",to: "registrations#edit_student"
+  patch "edit_profile",to: "registrations#update_student"
 
   #sign in Student
-  get "sign_in", to: "sessions#new" 
-  post "sign_in", to:"sessions#create"
+  get "sign_in", to: "sessions#new_student" 
+  post "sign_in", to:"sessions#create_student"
+  
   #sign in Teacher
-  get "teacher_sign_in", to: "teacher_sessions#new" 
-  post "teacher_sign_in", to:"teacher_sessions#create"
+  get "teacher_sign_in", to: "sessions#new_teacher" 
+  post "teacher_sign_in", to:"sessions#create_teacher"
 
   #logout for student
-  delete "logout", to:"sessions#destroy"
+  delete "logout_student", to:"sessions#destroy_student"
 
   #logout for student
-  delete "logout_teacher", to:"teacher_sessions#destroy"
+  delete "logout_teacher", to:"sessions#destroy_teacher"
 
+  # Add cource Support only by Root User
   get "add_cource", to:"cources#new"
   post "add_cource", to:"cources#create"
 
